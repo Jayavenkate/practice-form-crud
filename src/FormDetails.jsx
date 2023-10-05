@@ -128,7 +128,7 @@ export function FormDetails({ data, setData }) {
                   <TableCell>{data.TwoSem}</TableCell>
                   <TableCell>{data.ThreeSem}</TableCell>
                   <TableCell>
-                    {/* <FormGroup>
+                    <FormGroup>
                       <Stack direction="row" spacing={1} alignItems="center">
                         <Typography>InActive</Typography>
                         <AntSwitch
@@ -137,7 +137,7 @@ export function FormDetails({ data, setData }) {
                         />
                         <Typography>Active</Typography>
                       </Stack>
-                    </FormGroup> */}
+                    </FormGroup>
                   </TableCell>
                   <TableCell>{calculateTotal(data)}</TableCell>
                   <TableCell>
@@ -147,7 +147,7 @@ export function FormDetails({ data, setData }) {
                     <IconButton onClick={handleOpen}>
                       <DeleteOutlineIcon style={{ cursor: "pointer" }} />
                     </IconButton>
-                    {/* <Dialog
+                    <Dialog
                       open={open}
                       onClose={handleOpen}
                       aria-labelledby="alert-dialog-title"
@@ -167,7 +167,7 @@ export function FormDetails({ data, setData }) {
                           Delete
                         </Button>
                       </DialogActions>
-                    </Dialog> */}
+                    </Dialog>
                   </TableCell>
                 </TableRow>
               ))}
