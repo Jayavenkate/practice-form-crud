@@ -3,31 +3,14 @@ import Button from "@mui/material/Button";
 import { Card, CardActions, CardContent, TextField } from "@mui/material";
 import "./AddForm.css";
 import { useState } from "react";
-export function AddForm({ addStudent, data }) {
+export function EditForm() {
   const navigate = useNavigate();
-
   const [Name, setName] = useState("");
   const [College, setCollege] = useState("");
   const [Dob, setDob] = useState("");
   const [OneSem, setOnesem] = useState("");
   const [TwoSem, setTwoSem] = useState("");
   const [ThreeSem, setThreeSem] = useState("");
-
-  const addData = () => {
-    const newStudent = {
-      Id: data.length + 1,
-      Name,
-      College,
-      Dob,
-      OneSem,
-      TwoSem,
-      ThreeSem,
-      // Status,
-    };
-    console.log(newStudent);
-    addStudent(newStudent);
-    navigate("/");
-  };
   return (
     <div>
       <Button
@@ -47,7 +30,7 @@ export function AddForm({ addStudent, data }) {
           flexDirection: "column",
         }}
       >
-        <h3>Enter new student Details</h3>
+        <h3>Edit student Details</h3>
         <CardContent
           sx={{
             display: "flex",
@@ -92,17 +75,12 @@ export function AddForm({ addStudent, data }) {
             value={ThreeSem}
             onChange={(event) => setThreeSem(event.target.value)}
           />
-          {/* <TextField
-            label="Status"
-            variant="outlined"
-            value={Status}
-            onChange={(event) => setStatus(event.target.value)}
-          /> */}
+
           <CardActions>
             <Button
               sx={{ width: "400px" }}
               variant="contained"
-              onClick={() => addData()}
+              // onClick={() => addData()}
             >
               Submit
             </Button>

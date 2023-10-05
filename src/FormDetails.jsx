@@ -21,8 +21,11 @@ import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function FormDetails({ data, setData }) {
+  const navigate = useNavigate();
   //delete popop
 
   const [open, setOpen] = React.useState(false);
@@ -87,80 +90,91 @@ export function FormDetails({ data, setData }) {
     },
   }));
   return (
-    <div style={{ marginTop: "20px" }}>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>College</TableCell>
-              <TableCell>DOB</TableCell>
-              <TableCell>1st-sem</TableCell>
-              <TableCell>2nd-sem</TableCell>
-              <TableCell>3rd-sem</TableCell>
-              <TableCell>Staus</TableCell>
-              <TableCell>Total</TableCell>
-              <TableCell>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((data) => (
-              <TableRow key={data.Id}>
-                <TableCell component="th" scope="row">
-                  {data.Id}
-                </TableCell>
-                <TableCell>{data.Name}</TableCell>
-                <TableCell>{data.College}</TableCell>
-                <TableCell>{data.Dob}</TableCell>
-                <TableCell>{data.OneSem}</TableCell>
-                <TableCell>{data.TwoSem}</TableCell>
-                <TableCell>{data.ThreeSem}</TableCell>
-                <TableCell>
-                  <FormGroup>
-                    <Stack direction="row" spacing={1} alignItems="center">
-                      <Typography>InActive</Typography>
-                      <AntSwitch
-                        defaultChecked
-                        inputProps={{ "aria-label": "ant design" }}
-                      />
-                      <Typography>Active</Typography>
-                    </Stack>
-                  </FormGroup>
-                </TableCell>
-                <TableCell>{calculateTotal(data)}</TableCell>
-                <TableCell>
-                  <IconButton>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton onClick={handleOpen}>
-                    <DeleteOutlineIcon style={{ cursor: "pointer" }} />
-                  </IconButton>
-                  <Dialog
-                    open={open}
-                    onClose={handleOpen}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                  >
-                    <DialogTitle id="alert-dialog-title">
-                      {"Are You sure Delete this table data?"}
-                    </DialogTitle>
-                    <DialogContent>
-                      <DialogContentText id="alert-dialog-description">
-                        Yes sure i confirmed delete this student data
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleOpen}>Cancel</Button>
-                      <Button onClick={() => handleDelete(data)}>Delete</Button>
-                    </DialogActions>
-                  </Dialog>
-                </TableCell>
+    <>
+      <Button
+        onClick={() => navigate("/addstudent")}
+        sx={{ border: "1px solid" }}
+      >
+        Add Student
+      </Button>
+
+      <div style={{ marginTop: "20px" }}>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>College</TableCell>
+                <TableCell>DOB</TableCell>
+                <TableCell>1st-sem</TableCell>
+                <TableCell>2nd-sem</TableCell>
+                <TableCell>3rd-sem</TableCell>
+                <TableCell>Staus</TableCell>
+                <TableCell>Total</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+            </TableHead>
+            <TableBody>
+              {data.map((data) => (
+                <TableRow key={data.Id}>
+                  <TableCell component="th" scope="row">
+                    {data.Id}
+                  </TableCell>
+                  <TableCell>{data.Name}</TableCell>
+                  <TableCell>{data.College}</TableCell>
+                  <TableCell>{data.Dob}</TableCell>
+                  <TableCell>{data.OneSem}</TableCell>
+                  <TableCell>{data.TwoSem}</TableCell>
+                  <TableCell>{data.ThreeSem}</TableCell>
+                  <TableCell>
+                    {/* <FormGroup>
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <Typography>InActive</Typography>
+                        <AntSwitch
+                          defaultChecked
+                          inputProps={{ "aria-label": "ant design" }}
+                        />
+                        <Typography>Active</Typography>
+                      </Stack>
+                    </FormGroup> */}
+                  </TableCell>
+                  <TableCell>{calculateTotal(data)}</TableCell>
+                  <TableCell>
+                    <IconButton>
+                      <EditIcon onClick={() => navigate("/editform")} />
+                    </IconButton>
+                    <IconButton onClick={handleOpen}>
+                      <DeleteOutlineIcon style={{ cursor: "pointer" }} />
+                    </IconButton>
+                    {/* <Dialog
+                      open={open}
+                      onClose={handleOpen}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        {"Are You sure Delete this table data?"}
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                          Yes sure i confirmed delete this student data
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleOpen}>Cancel</Button>
+                        <Button onClick={() => handleDelete(data)}>
+                          Delete
+                        </Button>
+                      </DialogActions>
+                    </Dialog> */}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+    </>
   );
 }

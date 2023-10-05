@@ -4,6 +4,7 @@ import "./App.css";
 import { FormDetails } from "./FormDetails";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { EditForm } from "./EditForm";
 
 function App() {
   const [data, setData] = useState([
@@ -24,13 +25,6 @@ function App() {
   const navigate = useNavigate();
   return (
     <>
-      <Button
-        onClick={() => navigate("/addstudent")}
-        sx={{ border: "1px solid" }}
-      >
-        Add Student
-      </Button>
-
       <Routes>
         <Route
           path="/addstudent"
@@ -40,6 +34,7 @@ function App() {
           path="/"
           element={<FormDetails data={data} setData={setData} />}
         ></Route>
+        <Route path="/editform" element={<EditForm />}></Route>
       </Routes>
     </>
   );
