@@ -14,6 +14,7 @@ export function AddForm({ addStudent, data }) {
   const [ThreeSem, setThreeSem] = useState("");
 
   const addData = () => {
+    
     const newStudent = {
       Id: data.length + 1,
       Name,
@@ -22,7 +23,6 @@ export function AddForm({ addStudent, data }) {
       OneSem,
       TwoSem,
       ThreeSem,
-      // Status,
     };
     console.log(newStudent);
     addStudent(newStudent);
@@ -92,12 +92,6 @@ export function AddForm({ addStudent, data }) {
             value={ThreeSem}
             onChange={(event) => setThreeSem(event.target.value)}
           />
-          {/* <TextField
-            label="Status"
-            variant="outlined"
-            value={Status}
-            onChange={(event) => setStatus(event.target.value)}
-          /> */}
           <CardActions>
             <Button
               sx={{ width: "400px" }}

@@ -17,15 +17,82 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
-
+import { Card, CardActions, CardContent, TextField } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function FormDetails({ data, setData }) {
+export function FormDetails({ data, setData, editdata }) {
   const navigate = useNavigate();
+  //switch button
+  const [toggle, setToggle] = useState(false);
+  const togglerSwitch = () => {
+    setToggle(!toggle);
+  };
+
+  //edit student
+  const [editingStudent, setEditingStudent] = useState(null);
+
+  const [Name, setName] = useState("");
+  const [College, setCollege] = useState("");
+  const [Dob, setDob] = useState("");
+  const [OneSem, setOnesem] = useState("");
+  const [TwoSem, setTwoSem] = useState("");
+  const [ThreeSem, setThreeSem] = useState("");
+
+  const handleEdit = (data) => {
+    setEditingStudent(data);
+    setName(data.Name);
+    setCollege(data.College);
+    setDob(data.Dob);
+    setOnesem(data.OneSem);
+    setTwoSem(data.TwoSem);
+    setThreeSem(data.ThreeSem);
+  };
+  // const handleSave = () => {
+  //   // Find the edited student in the data array
+  //   const editedStudentIndex = data.findIndex(
+  //     (student) => student.Id === editingStudent.Id
+  //   );
+
+  //   if (editedStudentIndex !== -1) {
+  //     // Update the student's data with the edited values
+  //     const updatedData = [...data];
+  //     updatedData[editedStudentIndex] = {
+  //       ...editingStudent,
+  //       Name: Name,
+  //       College: College,
+  //       Dob: Dob,
+  //       OneSem: OneSem,
+  //       TwoSem: TwoSem,
+  //       ThreeSem: ThreeSem,
+  //     };
+  //     setData(updatedData);
+  //     setEditingStudent(null); // Clear the editing state
+  //     // Clear other state variables for other fields
+  //   }
+  // };
+
+  const updatedata = () => {
+    const editedStudentIndex = data.findIndex(
+      (student) => student.Id === editingStudent.Id
+    );
+    const update = {
+      Id: data.length,
+      Name: Name,
+      College: College,
+      Dob: Dob,
+      OneSem: OneSem,
+      TwoSem: TwoSem,
+      ThreeSem: ThreeSem,
+    };
+    data[editedStudentIndex] = update;
+    setData([...data]);
+    setEditingStudent(null);
+  };
+
   //delete popop
 
   const [open, setOpen] = React.useState(false);
@@ -45,50 +112,7 @@ export function FormDetails({ data, setData }) {
     setData(removedata);
     console.log("delete", dataToDelete);
   };
-  const AntSwitch = styled(Switch)(({ theme }) => ({
-    width: 28,
-    height: 16,
-    padding: 0,
-    display: "flex",
-    "&:active": {
-      "& .MuiSwitch-thumb": {
-        width: 15,
-      },
-      "& .MuiSwitch-switchBase.Mui-checked": {
-        transform: "translateX(9px)",
-      },
-    },
-    "& .MuiSwitch-switchBase": {
-      padding: 2,
-      "&.Mui-checked": {
-        transform: "translateX(12px)",
-        color: "#fff",
-        "& + .MuiSwitch-track": {
-          opacity: 1,
-          backgroundColor:
-            theme.palette.mode === "dark" ? "#177ddc" : "#1890ff",
-        },
-      },
-    },
-    "& .MuiSwitch-thumb": {
-      boxShadow: "0 2px 4px 0 rgb(0 35 11 / 20%)",
-      width: 12,
-      height: 12,
-      borderRadius: 6,
-      transition: theme.transitions.create(["width"], {
-        duration: 200,
-      }),
-    },
-    "& .MuiSwitch-track": {
-      borderRadius: 16 / 2,
-      opacity: 1,
-      backgroundColor:
-        theme.palette.mode === "dark"
-          ? "rgba(255,255,255,.35)"
-          : "rgba(0,0,0,.25)",
-      boxSizing: "border-box",
-    },
-  }));
+
   return (
     <>
       <Button
@@ -128,21 +152,13 @@ export function FormDetails({ data, setData }) {
                   <TableCell>{data.TwoSem}</TableCell>
                   <TableCell>{data.ThreeSem}</TableCell>
                   <TableCell>
-                    <FormGroup>
-                      <Stack direction="row" spacing={1} alignItems="center">
-                        <Typography>InActive</Typography>
-                        <AntSwitch
-                          defaultChecked
-                          inputProps={{ "aria-label": "ant design" }}
-                        />
-                        <Typography>Active</Typography>
-                      </Stack>
-                    </FormGroup>
+                    {toggle ? <span>Active</span> : <span>Inactive</span>}
                   </TableCell>
                   <TableCell>{calculateTotal(data)}</TableCell>
                   <TableCell>
+                    <Switch onClick={togglerSwitch} />
                     <IconButton>
-                      <EditIcon onClick={() => navigate("/editform")} />
+                      <EditIcon onClick={() => handleEdit(data)} />
                     </IconButton>
                     <IconButton onClick={handleOpen}>
                       <DeleteOutlineIcon style={{ cursor: "pointer" }} />
@@ -174,6 +190,76 @@ export function FormDetails({ data, setData }) {
             </TableBody>
           </Table>
         </TableContainer>
+        {editingStudent && (
+          <Card
+            sx={{
+              width: "450px",
+              display: "flex",
+              margin: "0 auto",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              marginTop: "30px",
+            }}
+          >
+            <h3>Update student Details</h3>
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "15px",
+                width: "400px",
+              }}
+            >
+              <TextField
+                label="Enter student Name"
+                variant="outlined"
+                value={Name}
+                onChange={(event) => setName(event.target.value)}
+              />
+              <TextField
+                label="Enter College Name"
+                variant="outlined"
+                value={College}
+                onChange={(event) => setCollege(event.target.value)}
+              />
+              <TextField
+                label="Enter student DOB"
+                variant="outlined"
+                value={Dob}
+                onChange={(event) => setDob(event.target.value)}
+              />
+              <TextField
+                label="Enter First semester Mark"
+                variant="outlined"
+                value={OneSem}
+                onChange={(event) => setOnesem(event.target.value)}
+              />
+              <TextField
+                label="Enter Second semester Mark"
+                variant="outlined"
+                value={TwoSem}
+                onChange={(event) => setTwoSem(event.target.value)}
+              />
+              <TextField
+                label="Enter Third semester Mark"
+                variant="outlined"
+                value={ThreeSem}
+                onChange={(event) => setThreeSem(event.target.value)}
+              />
+              <CardActions>
+                <Button
+                  sx={{ width: "400px" }}
+                  variant="contained"
+                  onClick={updatedata}
+                >
+                  Update
+                </Button>
+              </CardActions>
+            </CardContent>
+          </Card>
+        )}
+        <div></div>
       </div>
     </>
   );

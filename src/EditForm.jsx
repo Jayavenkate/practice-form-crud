@@ -11,6 +11,23 @@ export function EditForm() {
   const [OneSem, setOnesem] = useState("");
   const [TwoSem, setTwoSem] = useState("");
   const [ThreeSem, setThreeSem] = useState("");
+
+  const updatedata = () => {
+    const editstudent = data.findIndex((data) => data.Id === editId);
+    const update = {
+      Id: data.length + 1,
+      Name,
+      College,
+      Dob,
+      OneSem,
+      TwoSem,
+      ThreeSem,
+    };
+    console.log(update);
+    data[editstudent] = update;
+    setData([...data]);
+  };
+
   return (
     <div>
       <Button
@@ -80,9 +97,9 @@ export function EditForm() {
             <Button
               sx={{ width: "400px" }}
               variant="contained"
-              // onClick={() => addData()}
+              onClick={() => updatedata()}
             >
-              Submit
+              Update
             </Button>
           </CardActions>
         </CardContent>
