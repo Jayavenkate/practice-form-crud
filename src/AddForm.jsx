@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Card, CardActions, CardContent, TextField } from "@mui/material";
-import "./AddForm.css";
+
 import { useState } from "react";
 export function AddForm({ addStudent, data }) {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export function AddForm({ addStudent, data }) {
   const [ThreeSem, setThreeSem] = useState("");
 
   const addData = () => {
-    
+
     const newStudent = {
       Id: data.length + 1,
       Name,

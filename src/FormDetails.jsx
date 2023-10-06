@@ -134,9 +134,9 @@ export function FormDetails({ data, setData }) {
                   </TableCell>
                   <TableCell>{calculateTotal(data)}</TableCell>
                   <TableCell>
-                    <IconButton>
+                    <Button>
                       <EditIcon onClick={() => handleEdit(data)} />
-                    </IconButton>
+                    </Button>
                     <IconButton onClick={handleOpen}>
                       <DeleteOutlineIcon style={{ cursor: "pointer" }} />
                     </IconButton>
