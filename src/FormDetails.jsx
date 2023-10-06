@@ -23,8 +23,9 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Toggle } from "./Toggle";
 
-export function FormDetails({ data, setData, editdata }) {
+export function FormDetails({ data, setData }) {
   const navigate = useNavigate();
   //switch button
   const [toggle, setToggle] = useState(false);
@@ -51,29 +52,6 @@ export function FormDetails({ data, setData, editdata }) {
     setTwoSem(data.TwoSem);
     setThreeSem(data.ThreeSem);
   };
-  // const handleSave = () => {
-  //   // Find the edited student in the data array
-  //   const editedStudentIndex = data.findIndex(
-  //     (student) => student.Id === editingStudent.Id
-  //   );
-
-  //   if (editedStudentIndex !== -1) {
-  //     // Update the student's data with the edited values
-  //     const updatedData = [...data];
-  //     updatedData[editedStudentIndex] = {
-  //       ...editingStudent,
-  //       Name: Name,
-  //       College: College,
-  //       Dob: Dob,
-  //       OneSem: OneSem,
-  //       TwoSem: TwoSem,
-  //       ThreeSem: ThreeSem,
-  //     };
-  //     setData(updatedData);
-  //     setEditingStudent(null); // Clear the editing state
-  //     // Clear other state variables for other fields
-  //   }
-  // };
 
   const updatedata = () => {
     const editedStudentIndex = data.findIndex(
@@ -152,11 +130,10 @@ export function FormDetails({ data, setData, editdata }) {
                   <TableCell>{data.TwoSem}</TableCell>
                   <TableCell>{data.ThreeSem}</TableCell>
                   <TableCell>
-                    {toggle ? <span>Active</span> : <span>Inactive</span>}
+                    <Toggle />
                   </TableCell>
                   <TableCell>{calculateTotal(data)}</TableCell>
                   <TableCell>
-                    <Switch onClick={togglerSwitch} />
                     <IconButton>
                       <EditIcon onClick={() => handleEdit(data)} />
                     </IconButton>
@@ -259,7 +236,6 @@ export function FormDetails({ data, setData, editdata }) {
             </CardContent>
           </Card>
         )}
-        <div></div>
       </div>
     </>
   );
