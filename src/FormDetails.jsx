@@ -79,11 +79,13 @@ export function FormDetails({ data, setData, show }) {
   };
   // total value
   const calculateTotal = (data) => {
+    const maxValue = 300;
     const { OneSem, TwoSem, ThreeSem } = data;
     const total = [OneSem, TwoSem, ThreeSem].reduce((acc, currentValue) => {
       return acc + parseFloat(currentValue || 0);
     }, 0);
-    return total;
+    const percentage = ((total / maxValue) * 100).toFixed(2);
+    return percentage;
   };
   const handleDelete = (dataToDelete) => {
     const removedata = data.filter((item) => item.Id !== dataToDelete.Id);
@@ -133,7 +135,7 @@ export function FormDetails({ data, setData, show }) {
                     <TableCell>
                       <Toggle />
                     </TableCell>
-                    <TableCell>{calculateTotal(data)}</TableCell>
+                    <TableCell>{calculateTotal(data)}%</TableCell>
                     <TableCell>
                       <Button>
                         <EditIcon onClick={() => handleEdit(data)} />
@@ -251,8 +253,8 @@ export function FormDetails({ data, setData, show }) {
             width: "250px",
             display: "flex",
             margin: "0 auto",
-            alignItems:"center",
-            justifyContent:"center"
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           No Data
