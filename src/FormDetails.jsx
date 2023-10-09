@@ -206,24 +206,28 @@ export function FormDetails({ data, setData, show }) {
                   variant="outlined"
                   value={Dob}
                   onChange={(event) => setDob(event.target.value)}
+                  type="date"
                 />
                 <TextField
                   label="Enter First semester Mark"
                   variant="outlined"
                   value={OneSem}
                   onChange={(event) => setOnesem(event.target.value)}
+                  type="number"
                 />
                 <TextField
                   label="Enter Second semester Mark"
                   variant="outlined"
                   value={TwoSem}
                   onChange={(event) => setTwoSem(event.target.value)}
+                  type="number"
                 />
                 <TextField
                   label="Enter Third semester Mark"
                   variant="outlined"
                   value={ThreeSem}
                   onChange={(event) => setThreeSem(event.target.value)}
+                  type="number"
                 />
                 <CardActions>
                   <Button
