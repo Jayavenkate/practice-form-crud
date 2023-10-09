@@ -10,8 +10,9 @@ function App() {
   const [data, setData] = useState([]);
   const addStudent = (newStudent) => {
     setData([...data, newStudent]);
+    setShow(!show);
   };
-
+  const [show, setShow] = useState(false);
   return (
     <>
       <Routes>
@@ -21,7 +22,7 @@ function App() {
         ></Route>
         <Route
           path="/"
-          element={<FormDetails data={data} setData={setData} />}
+          element={<FormDetails data={data} setData={setData} show={show} />}
         ></Route>
         {/* <Route path="/editform" element={<EditForm data={data} />}></Route> */}
       </Routes>
